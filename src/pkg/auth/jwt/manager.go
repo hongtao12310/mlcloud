@@ -31,7 +31,7 @@ func (self *JWTTokenManager) Generate(user *models.User) (*auth.LoginResponse, e
         *user,
         jwt.StandardClaims {
             ExpiresAt: expireToken,
-            Issuer: "wanda.com",
+            Issuer: "test.com",
             IssuedAt: iat,
         },
     }
