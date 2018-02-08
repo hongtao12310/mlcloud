@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mlcloud-rbd-mysql
+  labels:
+    app: mlcloud-mysql
+    user: mysql
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  rbd:
+    monitors:
+      - 10.214.160.5:6789
+      - 10.214.160.6:6789
+      - 10.214.160.7:6789
+    pool: kube
+    image: mlcloud-mysql
+    user: admin
+    secretRef:
+      name: cephfs-secret
+    fsType: xfs
+    readOnly: false
+  # reclaim Policy: Retain, Recycle, Delete
+  persistentVolumeReclaimPolicy: Retain

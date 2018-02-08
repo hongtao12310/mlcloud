@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tf-job-operator-config
+data:
+  controller_config_file.yaml: |
+    accelerators:
+      alpha.kubernetes.io/nvidia-gpu:
+        volumes:
+          - name: nvidia-libraries
+            mountPath: /usr/local/nvidia # This path is special; it is expected to be present in `/etc/ld.so.conf` inside the container image.
+            hostPath: /var/lib/nvidia-docker/volumes/nvidia_driver/current
+#          - name: nvidia-debug-tools # optional
+#            mountPath: /usr/local/bin/nvidia
+#            hostPath: /bin

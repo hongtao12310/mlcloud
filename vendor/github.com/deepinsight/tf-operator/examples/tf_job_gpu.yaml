@@ -1,0 +1,19 @@
+apiVersion: "tensorflow.org/v1alpha1"
+kind: "TfJob"
+metadata:
+  name: "tf-smoke-gpu"
+spec:
+  replicaSpecs:
+    - tfReplicaType: MASTER
+      template:
+        spec:
+          tolerations:
+          - key: gpu
+            effect: NoSchedule
+          containers:
+            - image: 10.199.192.16/tensorflow/tf_sample_gpu:dc944ff
+              name: tensorflow
+              resources:
+                limits:
+                  alpha.kubernetes.io/nvidia-gpu: 1
+          restartPolicy: OnFailure

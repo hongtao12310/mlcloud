@@ -1,0 +1,7 @@
+package cluster
+
+const (
+    FILE_NOT_EXISTS = 30000
+    IN_CLUSTER_INIT_ERROR = 30001
+    CREATE_CLIENT_CONFIG_ERROR = 30002
+)

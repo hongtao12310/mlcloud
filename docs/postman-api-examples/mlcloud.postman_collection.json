@@ -1,0 +1,423 @@
+{
+	"variables": [],
+	"info": {
+		"name": "mlcloud",
+		"_postman_id": "7d11e7ff-2bbf-f944-7bb4-929744176fba",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"description": "",
+			"item": [
+				{
+					"name": "users",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "list users"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"TOKEN\", jsonData.results.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{SERVER}}/api/v1/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"mlcloud\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"url": "{{SERVER}}/api/v1/signup",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"test\",\n\t\"password\": \"password\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/test",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "job",
+			"description": "",
+			"item": [
+				{
+					"name": "jobs",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "list jobs"
+					},
+					"response": []
+				},
+				{
+					"name": "job",
+					"request": {
+						"url": "{{SERVER}}/api/v1/jobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"mnist\", \"type\": \"tensorflow\", \"num_workers\": 1}"
+						},
+						"description": "submit job"
+					},
+					"response": []
+				},
+				{
+					"name": "user job",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs/mnist",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"my job\"}"
+						},
+						"description": "delete job"
+					},
+					"response": []
+				},
+				{
+					"name": "hello world",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/test/jobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"hello\",\n\t\"type\": \"tensorflow\",\n\t\"tensorflow\":{\n\t\t\"num_workers\": 1, \n\t\t\"command\": \"python /home/test/hello.py\"\n\t}\n}"
+						},
+						"description": "submit job"
+					},
+					"response": []
+				},
+				{
+					"name": "mnist job (1 cpu)",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"mnist\",\n\t\"type\": \"tensorflow\",\n\t\"tensorflow\":{\n\t\t\"num_workers\": 1, \n\t\t\"command\": \"python /home/huangyue/mnist/mnist_train.py --data /home/huangyue/data/mnist --log-dir /home/huangyue/mnist/logs\", \n\t\t\"log_dir\": \"/home/huangyue/mnist/logs\", \n\t\t\"tensorboard\": true\n\t}\n}"
+						},
+						"description": "submit job"
+					},
+					"response": []
+				},
+				{
+					"name": "gpu test job (1 gpu)",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"gpu-test\",\n\t\"type\": \"tensorflow\",\n\t\"tensorflow\":{\n\t\t\"has_master\": true,\n\t\t\"image\": \"10.199.192.16/tensorflow/tf_sample_gpu:dc944ff\",\n\t\t\"tensorboard\": false,\n\t\t\"use_gpu\": true\n\t}\n}"
+						},
+						"description": "submit job"
+					},
+					"response": []
+				},
+				{
+					"name": "test job",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":0,\"name\":\"gpu-test\",\"type\":\"tensorflow\",\"user_id\":0,\"user_name\":\"\",\"tensorflow\":{\"id\":0,\"num_ps\":0,\"num_workers\":0,\"image\":\"10.199.192.16/tensorflow/tf_sample_gpu:dc944ff\",\"data_dir\":\"\",\"log_dir\":\"\",\"use_gpu\":true,\"has_master\":true},\"creation_time\":\"0001-01-01T00:00:00Z\",\"update_time\":\"0001-01-01T00:00:00Z\"}"
+						},
+						"description": "submit job"
+					},
+					"response": []
+				},
+				{
+					"name": "job",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/huangyue/jobs/mnist",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "get one job"
+					},
+					"response": []
+				},
+				{
+					"name": "job logs",
+					"request": {
+						"url": "{{SERVER}}/api/v1/users/hongtao/jobs/gpu-test/master/0/logs",
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "get job logs"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fs",
+			"description": "",
+			"item": [
+				{
+					"name": "files",
+					"request": {
+						"url": {
+							"raw": "{{SERVER}}/api/v1/fs/files?method=ls&path=/",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fs",
+								"files"
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "ls",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "path",
+									"value": "/",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "list files"
+					},
+					"response": []
+				},
+				{
+					"name": "mkdir",
+					"request": {
+						"url": "{{SERVER}}/api/v1/fs/files",
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"method\": \"mkdir\",\n\t\"path\": \"/test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "dir",
+					"request": {
+						"url": "{{SERVER}}/api/v1/fs/files",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"method\": \"delete\",\n\t\"r\": true,\n\t\"path\": \"/test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"url": "{{SERVER}}/api/v1/health",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

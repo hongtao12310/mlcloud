@@ -1,0 +1,55 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+    k8s-app: mlcloud
+  name: mlcloud
+  namespace: mlcloud
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: mlcloud
+  template:
+    metadata:
+      labels:
+        k8s-app: mlcloud
+    spec:
+      imagePullSecrets:
+      - name: harbor-secret
+      containers:
+      - name: mlcloud
+        image: 10.199.192.16/machine_learning/mlcloud:v1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9090
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: server-config
+        args:
+          # Uncomment the following line to manually specify Kubernetes API server Host
+          # If not specified, mlcloud will attempt to auto discover the API server and connect
+          # to it. Uncomment only if the default does not work.
+          # - --apiserver-host=http://my-address:port
+          - -logtostderr
+          - -v=4
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health
+            port: 9090
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        volumeMounts:
+        - name: fs-data
+          mountPath: /data
+      serviceAccountName: mlcloud
+      # Comment the following tolerations if mlcloud must not be deployed on master
+      #tolerations:
+      #- key: node-role.kubernetes.io/master
+      #  effect: NoSchedule
+      volumes:
+      - name: fs-data
+        persistentVolumeClaim:
+          claimName: mlcloud

@@ -1,0 +1,388 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "The purpose of this application is to provide a machine learning platform to adaptor\nTensorflow / MXNet / Caffe based on kubernetes container cloud.",
+    "title": "go-swagger document for mlcloud.",
+    "version": "1.0"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "paths": {
+    "/api/v1/fs/files": {
+      "get": {
+        "description": "the response body can be fetched from response body",
+        "tags": [
+          "getFiles"
+        ],
+        "summary": "Handler for files list/stat.",
+        "operationId": "lsCmd",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Method",
+            "description": "list file method - ls",
+            "name": "method",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "x-go-name": "R",
+            "description": "recursively",
+            "name": "r",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Root",
+            "description": "the root Path",
+            "name": "root",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "the real Path",
+            "name": "path",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "400": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "405": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "500": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "the response body can be fetched from response body",
+        "tags": [
+          "postFiles"
+        ],
+        "summary": "Handler for mkdir.",
+        "operationId": "mkdirCmd",
+        "parameters": [
+          {
+            "x-go-name": "Root",
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "x-go-name": "Method",
+            "description": "method - mkdir",
+            "name": "method",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "x-go-name": "Path",
+            "description": "file path",
+            "name": "path",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "400": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "401": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "the response body can be fetched from response body",
+        "tags": [
+          "deleteFiles"
+        ],
+        "summary": "Handler for delete files or directory.",
+        "operationId": "rmCmd",
+        "parameters": [
+          {
+            "x-go-name": "Method",
+            "description": "list file method - rm",
+            "name": "method",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "x-go-name": "R",
+            "description": "recursively - true or false",
+            "name": "r",
+            "in": "body",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "type": "string",
+            "x-go-name": "Root",
+            "description": "path root\nin body",
+            "name": "root",
+            "in": "query"
+          },
+          {
+            "x-go-name": "Path",
+            "description": "file full path",
+            "name": "path",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "400": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "401": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "description": "the response body can be fetched from response body",
+        "tags": [
+          "health"
+        ],
+        "summary": "Handler for health check.",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/%22health"
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "description": "the response code can be fetched from response body",
+        "tags": [
+          "signup"
+        ],
+        "summary": "Handler for user signup.",
+        "operationId": "userSpec",
+        "parameters": [
+          {
+            "x-go-name": "Username",
+            "description": "Username is the username for basic authentication to the ML Cloud.",
+            "name": "username",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "x-go-name": "Password",
+            "description": "Password is the password for basic authentication to the ML Cloud.",
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "400": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "403": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "405": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "500": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/signup": {
+      "post": {
+        "description": "the response code can be fetched from response body",
+        "tags": [
+          "signup"
+        ],
+        "summary": "Handler for user signup.",
+        "operationId": "userSpec",
+        "parameters": [
+          {
+            "x-go-name": "Username",
+            "description": "Username is the username for basic authentication to the ML Cloud.",
+            "name": "username",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "x-go-name": "Password",
+            "description": "Password is the password for basic authentication to the ML Cloud.",
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "400": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "403": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "405": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          },
+          "500": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "response": {
+      "description": "An HTTP response model",
+      "type": "object",
+      "required": [
+        "err",
+        "code",
+        "results"
+      ],
+      "properties": {
+        "code": {
+          "description": "the error code",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "err": {
+          "description": "the error message",
+          "type": "string",
+          "x-go-name": "Err"
+        },
+        "results": {
+          "description": "the response body",
+          "type": "object",
+          "x-go-name": "Results"
+        }
+      },
+      "x-go-name": "Response",
+      "x-go-package": "github.com/deepinsight/mlcloud/src/utils/http"
+    }
+  }
+}

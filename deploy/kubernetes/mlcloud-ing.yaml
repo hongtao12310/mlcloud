@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mlcloud
+  namespace: mlcloud
+spec:
+  rules:
+  - host: mlcloud-dev.kubernetes.wanda.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mlcloud
+          servicePort: 80

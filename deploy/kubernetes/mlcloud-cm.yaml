@@ -1,0 +1,13 @@
+## configmap for mlcloud server
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: server-config
+  namespace: mlcloud
+data:
+  MYSQL_HOST: mysql.mlcloud.svc.cluster.local
+  MYSQL_PORT: "3306"
+  MYSQL_USER: mlcloud
+  MYSQL_PASSWORD: mlcloud
+  MYSQL_DATABASE: mlcloud
+  FS_BASE_PATH: /data

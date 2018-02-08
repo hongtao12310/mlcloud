@@ -1,0 +1,85 @@
+# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md for detailed Gopkg.toml documentation.
+
+[[constraint]]
+  name = "k8s.io/apimachinery"
+  revision = "abe34e4f5b4413c282a83011892cbeea5b32223b"
+
+# [[override]] force the version
+[[override]]
+  name = "k8s.io/apiextensions-apiserver"
+  revision = "6d8c23d2e66ce61e2a7e34f92e8eb3eec13279fa"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  version = "v4.0.0-beta.0"
+
+#[[constraint]]
+#  name = "github.com/emicklei/go-restful"
+#  revision = "1eaf4c9d1681d91b31eeb1414a8a715b8008c7a2"
+
+[[constraint]]
+  name = "github.com/dgrijalva/jwt-go"
+  branch = "master"
+
+#[[constraint]]
+#  name = "github.com/codegangsta/negroni"
+#  branch = "master"
+
+[[constraint]]
+  name = "github.com/gorilla/context"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/gorilla/mux"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/gorilla/handler"
+  branch = "master"
+
+# when running dep ensure grouped write of manifest, lock and vendor
+[[constraint]]
+  name = "github.com/astaxie/beego"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/go-sql-driver/mysql"
+  branch = "master"
+
+#[[constraint]]
+#  name = "github.com/google/subcommands"
+#  branch = "master"
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/ghodss/yaml"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/deepinsight/tf-operator"
+  # prefer revision as branch can change
+  revision = "86e415dfcea0cf8b4e2199b3d2a45386cb7f5810"
+
+[[constraint]]
+  name = "github.com/deepinsight/mxnet-operator"
+  branch = "1.7"
+
+[[override]]
+  name = "github.com/ugorji/go"
+  revision = "8c0409fcbb70099c748d71f714529204975f6c3f"
+
+# add swagger dependencies
+#[[constraint]]
+#  name = "github.com/go-openapi/runtime"
+#  branch = "master"
+
+#[[constraint]]
+#  name = "github.com/tylerb/graceful"
+#  branch = "master"
+
+#[[constraint]]
+#  name = "github.com/jessevdk/go-flags"
+#  branch = "master"
