@@ -130,7 +130,7 @@ func parseArguments(cmd *cobra.Command) (*models.Job, error) {
 			Command:         command,
 			ArgsSlice:       &argslice,
 			Tensorboard:     tensorboard,
-			TensorboardHost: jobName + "." + jobs.Username + ".test-cloud.bigdata.wanda.cn",
+			TensorboardHost: jobName + "." + jobs.Username + ".test-cloud.bigdata.test.cn",
 			LogDir:          logDir,
 			NumGPU:          numGPU,
 		}
