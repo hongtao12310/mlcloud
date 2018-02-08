@@ -170,7 +170,7 @@ func GenerateTFJob(job *models.Job) (*spec.TfJob, error) {
 	// Generate Tensorboard if requested
 	var tensorboardSpec *spec.TensorBoardSpec
 	if job.Tensorflow.Tensorboard {
-		job.Tensorflow.TensorboardHost = job.Name + "." + job.User.Username + ".test-cloud.bigdata.wanda.cn"
+		job.Tensorflow.TensorboardHost = job.Name + "." + job.User.Username + ".test-cloud.bigdata.test.cn"
 		tensorboardSpec = &spec.TensorBoardSpec{
 			Image:        "10.199.192.16/tensorflow/tensorflow:1.2.1",
 			LogDir:       job.Tensorflow.LogDir,
